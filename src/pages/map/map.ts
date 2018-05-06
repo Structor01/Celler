@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import {Location} from "../../models/location";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-map',
+  templateUrl: 'map.html',
 })
-export class HomePage {
+export class MapPage {
+
   location: Location;
   marker: Location;
   constructor() {
@@ -18,4 +19,5 @@ export class HomePage {
   onSetMarker(event: any) {
     this.marker = new Location(event.coords.lat, event.coords.lng);
   }
+
 }

@@ -1,14 +1,35 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+<ion-header padding text-center>
+  <img width="50rem" src="assets/imgs/icon.png">
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content [ngStyle]="{'background':'#006699'}">
+  <ion-row [ngStyle]="{'padding-top':'1rem'}">
+    <ion-col text-center col-6 padding>
+      <button ion-button clear col-12>
+        <ion-icon name="md-paper-plane"></ion-icon>
+      </button>
+      <p>Iniciar</p>
+    </ion-col>
+    <ion-col text-center col-6 padding>
+      <button ion-button clear col-12>
+        <ion-icon name="md-time"></ion-icon>
+      </button>
+      <p>Histórico</p>
+    </ion-col>
+  </ion-row>
+  <ion-row [ngStyle]="{'margin-top':'2rem'}">
+    <ion-col text-center col-6 padding>
+      <button ion-button clear col-12>
+        <ion-icon name="md-stopwatch"></ion-icon>
+      </button>
+      <p>Programar Entrega</p>
+    </ion-col>
+    <ion-col text-center col-6 padding>
+      <button ion-button clear col-12>
+        <ion-icon name="md-map"></ion-icon>
+      </button>
+      <p>Meus Lugares</p>
+    </ion-col>
+  </ion-row>
 </ion-content>
+
