@@ -1,0 +1,8 @@
+{
+  "name": "celler",
+  "app_id": "6ffd3f24",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
