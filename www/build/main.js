@@ -79,7 +79,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/arthurbarros/Desktop/celer_v1/Celler/src/pages/home/home.html"*/'<ion-header padding text-center>\n  <img width="50rem" src="assets/imgs/icon.png">\n</ion-header>\n\n<ion-content [ngStyle]="{\'background\':\'#006699\'}">\n  <ion-row [ngStyle]="{\'padding-top\':\'1rem\'}">\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12 [navPush]="map">\n        <ion-icon name="md-paper-plane"></ion-icon>\n      </button>\n      <p>Iniciar</p>\n    </ion-col>\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12>\n        <ion-icon name="md-time"></ion-icon>\n      </button>\n      <p>Histórico</p>\n    </ion-col>\n  </ion-row>\n  <ion-row [ngStyle]="{\'margin-top\':\'2rem\'}">\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12>\n        <ion-icon name="md-stopwatch"></ion-icon>\n      </button>\n      <p>Programar Entrega</p>\n    </ion-col>\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12>\n        <ion-icon name="md-map"></ion-icon>\n      </button>\n      <p>Meus Lugares</p>\n    </ion-col>\n  </ion-row>\n</ion-content>\n\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/celer_v1/Celler/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/arthurbarros/Google Drive/Structor/Celler/Celler_v1/src/pages/home/home.html"*/'<ion-header padding text-center>\n  <!--<img width="50rem" src="assets/imgs/icon.png">-->\n\n  <button ion-button clear float-end>\n    <ion-icon [color]="primary" name="md-settings"></ion-icon>\n  </button>\n</ion-header>\n\n<ion-content [ngStyle]="{\'background\':\'#006699\'}">\n  <ion-row [ngStyle]="{\'padding-top\':\'1rem\'}">\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12 [navPush]="map">\n        <ion-icon name="md-paper-plane"></ion-icon>\n      </button>\n      <p>Iniciar</p>\n    </ion-col>\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12>\n        <ion-icon name="md-time"></ion-icon>\n      </button>\n      <p>Histórico</p>\n    </ion-col>\n  </ion-row>\n  <ion-row [ngStyle]="{\'margin-top\':\'2rem\'}">\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12>\n        <ion-icon name="md-stopwatch"></ion-icon>\n      </button>\n      <p>Programar Entrega</p>\n    </ion-col>\n    <ion-col text-center col-6 padding>\n      <button ion-button clear col-12>\n        <ion-icon name="md-map"></ion-icon>\n      </button>\n      <p>Meus Lugares</p>\n    </ion-col>\n  </ion-row>\n</ion-content>\n\n'/*ion-inline-end:"/Users/arthurbarros/Google Drive/Structor/Celler/Celler_v1/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], HomePage);
@@ -137,7 +137,7 @@ var MapPage = /** @class */ (function () {
     };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-map',template:/*ion-inline-start:"/Users/arthurbarros/Desktop/celer_v1/Celler/src/pages/map/map.html"*/'<agm-map\n  [latitude]="location.lat"\n  [longitude]="location.lng"\n  [zoom]="16"\n  (mapClick)="onSetMarker($event)">\n  <agm-marker\n    [latitude]="marker.lat"\n    [longitude]="marker.lng"\n    *ngIf="marker"\n  ></agm-marker>\n</agm-map>\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/celer_v1/Celler/src/pages/map/map.html"*/,
+            selector: 'page-map',template:/*ion-inline-start:"/Users/arthurbarros/Google Drive/Structor/Celler/Celler_v1/src/pages/map/map.html"*/'<agm-map\n  [latitude]="location.lat"\n  [longitude]="location.lng"\n  [zoom]="16"\n  (mapClick)="onSetMarker($event)">\n  <agm-marker\n    [latitude]="marker.lat"\n    [longitude]="marker.lng"\n    *ngIf="marker"\n  ></agm-marker>\n</agm-map>\n'/*ion-inline-end:"/Users/arthurbarros/Google Drive/Structor/Celler/Celler_v1/src/pages/map/map.html"*/,
         }),
         __metadata("design:paramtypes", [])
     ], MapPage);
@@ -268,7 +268,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/arthurbarros/Desktop/celer_v1/Celler/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/celer_v1/Celler/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/arthurbarros/Google Drive/Structor/Celler/Celler_v1/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/arthurbarros/Google Drive/Structor/Celler/Celler_v1/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);

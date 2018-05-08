@@ -1,13 +1,19 @@
 page-home {
   ion-header {
-    height: 40%;
-    background: white;
+    height: 30%;
+    background: url("/assets/imgs/BANNER.jpg");
+    background-size: cover;
+    background-position: bottom center;
+  }
+  ion-header ion-icon {
+    font-size: 3rem;
   }
 
-  ion-icon {
+  ion-content ion-icon {
     font-size: 5rem;
     color: white;
   }
+
   p {
     color: white;
     padding: 0;
