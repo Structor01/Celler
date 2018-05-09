@@ -8,9 +8,9 @@ page-home {
   }
 
   ion-content {
-      background: url("/assets/imgs/BANNER.jpg");
-      background-size: cover;
-      background-position: bottom center;
+      //background: url("/assets/imgs/BANNER.jpg");
+      //background-size: cover;
+      //background-position: bottom center;
   }
 
   ion-content ion-icon {
@@ -19,7 +19,7 @@ page-home {
   }
 
   ion-content ion-row {
-    background: rgba(255,255,255,1);
+    background: rgba(255,255,255,0.8);
   }
 
   p {

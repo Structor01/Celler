@@ -1,11 +1,39 @@
+<ion-header>
+  <ion-list>
+    <ion-item id="origem">
+      <ion-label floating>Origem</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Local de Entrega</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-header>
 <agm-map
   [latitude]="location.lat"
   [longitude]="location.lng"
   [zoom]="16"
-  (mapClick)="onSetMarker($event)">
+  (mapClick)="onSetMarker($event)"
+  [styles]= "styles"
+>
   <agm-marker
     [latitude]="marker.lat"
     [longitude]="marker.lng"
     *ngIf="marker"
   ></agm-marker>
 </agm-map>
+<ion-footer padding>
+  <ion-row>
+    <ion-col text-center col-3>
+      <button ion-button round icon-only color="light" navPop>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-center col-3>
+      <button ion-button round icon-only color="primary">
+        <ion-icon name="md-stopwatch"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
