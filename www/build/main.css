@@ -25679,23 +25679,28 @@ ion-navbar.toolbar {
 }
 
 page-home ion-header {
-  height: 30%;
-  background: url("/assets/imgs/BANNER.jpg");
-  background-size: cover;
-  background-position: bottom center;
+  min-height: 25%;
 }
 
 page-home ion-header ion-icon {
   font-size: 3rem;
 }
 
+page-home ion-content {
+  background: url("/assets/imgs/BANNER.jpg");
+  background-size: cover;
+  background-position: bottom center;
+}
+
 page-home ion-content ion-icon {
   font-size: 5rem;
-  color: white;
+}
+
+page-home ion-content ion-row {
+  background: white;
 }
 
 page-home p {
-  color: white;
   padding: 0;
   margin: 0;
 }

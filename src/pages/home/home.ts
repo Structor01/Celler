@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {Location} from "../../models/location";
-import {MapPage} from "../map/map";
+import { Location } from "../../models/location";
+import { MapPage } from "../map/map";
 
 @Component({
   selector: 'page-home',

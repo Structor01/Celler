@@ -1,15 +1,25 @@
-<ion-header padding text-center>
-  <!--<img width="50rem" src="assets/imgs/icon.png">-->
-
-  <button ion-button clear float-end>
-    <ion-icon [color]="primary" name="md-settings"></ion-icon>
-  </button>
+<ion-header padding>
+  <ion-row>
+    <ion-col col-4>
+      <button ion-button clear float-start>
+        <ion-icon [ngStyle]="{'color':'white'}" name="md-menu"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-center col-4>
+      <img width="50rem" src="assets/imgs/iconW.png">
+    </ion-col>
+    <ion-col col-4>
+      <button ion-button clear float-end>
+        <ion-icon [ngStyle]="{'color':'white'}" name="md-settings"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-header>
 
-<ion-content [ngStyle]="{'background':'#006699'}">
-  <ion-row [ngStyle]="{'padding-top':'1rem'}">
+<ion-content>
+  <ion-row [ngStyle]="{'padding':'2rem'}">
     <ion-col text-center col-6 padding>
-      <button ion-button clear col-12 [navPush]="map">
+      <button ion-button clear color="primary" col-12 [navPush]="map">
         <ion-icon name="md-paper-plane"></ion-icon>
       </button>
       <p>Iniciar</p>
@@ -20,8 +30,6 @@
       </button>
       <p>Histórico</p>
     </ion-col>
-  </ion-row>
-  <ion-row [ngStyle]="{'margin-top':'2rem'}">
     <ion-col text-center col-6 padding>
       <button ion-button clear col-12>
         <ion-icon name="md-stopwatch"></ion-icon>

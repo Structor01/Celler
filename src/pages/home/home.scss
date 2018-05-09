@@ -1,21 +1,28 @@
 page-home {
   ion-header {
-    height: 30%;
-    background: url("/assets/imgs/BANNER.jpg");
-    background-size: cover;
-    background-position: bottom center;
+    min-height: 25%;
   }
+
   ion-header ion-icon {
     font-size: 3rem;
   }
 
+  ion-content {
+      background: url("/assets/imgs/BANNER.jpg");
+      background-size: cover;
+      background-position: bottom center;
+  }
+
   ion-content ion-icon {
     font-size: 5rem;
-    color: white;
+    //color: white;
+  }
+
+  ion-content ion-row {
+    background: rgba(255,255,255,1);
   }
 
   p {
-    color: white;
     padding: 0;
     margin: 0;
   }
