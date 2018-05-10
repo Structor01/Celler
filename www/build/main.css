@@ -25680,6 +25680,7 @@ ion-navbar.toolbar {
 
 page-home ion-header {
   background: white;
+  padding-top: 3rem;
 }
 
 page-home ion-header ion-icon {
@@ -25697,7 +25698,7 @@ page-home ion-avatar img {
 }
 
 page-home ion-content {
-  background: url("/assets/imgs/BANNER01.jpg");
+  background: url("assets/imgs/BANNER01.jpg");
   background-size: cover;
   background-position: bottom center;
 }
@@ -25713,6 +25714,10 @@ page-home ion-content ion-icon {
 page-home p {
   padding: 0;
   margin: 0;
+}
+
+page-map ion-header {
+  padding-top: 3rem;
 }
 
 page-map agm-map {

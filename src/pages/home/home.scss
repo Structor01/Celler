@@ -2,6 +2,7 @@ page-home {
   ion-header {
     //min-height: 30%;
     background: white;
+    padding-top: 3rem;
   }
 
   ion-header ion-icon {
@@ -21,7 +22,7 @@ page-home {
   }
 
   ion-content {
-      background: url("/assets/imgs/BANNER01.jpg");
+      background: url("assets/imgs/BANNER01.jpg");
       background-size: cover;
       background-position: bottom center;
   }
