@@ -1,47 +1,82 @@
 <ion-header padding>
   <ion-row>
-    <ion-col col-4>
-      <button ion-button clear float-start>
+    <ion-col col-2>
+      <button ion-button icon-only clear menuToggle float-start>
         <ion-icon color="primary" name="md-menu"></ion-icon>
       </button>
     </ion-col>
-    <ion-col text-center col-4>
-      <img width="60rem" src="assets/imgs/icon.png">
+    <ion-col text-center col-8>
+      <img width="90%" src="assets/imgs/icon.png">
     </ion-col>
-    <ion-col col-4>
-      <button ion-button clear float-end>
+    <ion-col col-2>
+      <button ion-button icon-only clear float-end>
         <ion-icon color="primary" name="md-settings"></ion-icon>
       </button>
     </ion-col>
   </ion-row>
 </ion-header>
 
-<ion-content>
-  <ion-row [ngStyle]="{'padding':'2rem'}">
-    <ion-col text-center col-6 padding>
-      <button ion-button clear color="primary" col-12 [navPush]="map">
+<ion-menu type="overlay" [content]="content">
+  <ion-header>
+    <ion-list>
+      <ion-item>
+        <ion-avatar item-start="">
+          <img src="https://scontent.fgyn3-1.fna.fbcdn.net/v/t1.0-9/31445063_1527021374063269_6630260406336094208_n.jpg?_nc_cat=0&oh=8c9b1ae8ed0dc8e123f01dfe08aa39ec&oe=5B572810">
+        </ion-avatar>
+        <h2>Arthur Barros</h2>
+        <p>Premium</p>
+      </ion-item>
+    </ion-list>
+  </ion-header>
+  <!--<ion-content>-->
+    <!--<ion-list>-->
+      <!--<button ion-item (click)="openPage(homePage)">-->
+        <!--Home-->
+      <!--</button>-->
+      <!--<button ion-item (click)="openPage(friendsPage)">-->
+        <!--Friends-->
+      <!--</button>-->
+      <!--<button ion-item (click)="openPage(eventsPage)">-->
+        <!--Events-->
+      <!--</button>-->
+      <!--<button ion-item (click)="closeMenu()">-->
+        <!--Close Menu-->
+      <!--</button>-->
+    <!--</ion-list>-->
+  <!--</ion-content>-->
+</ion-menu>
+
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
+
+<ion-content padding>
+  <ion-row [ngStyle]="{'padding-top':'3rem'}">
+    <ion-col text-center col-6>
+      <button ion-button clear icon-only color="primary" col-12 [navPush]="map">
         <ion-icon name="md-paper-plane"></ion-icon>
       </button>
       <p>Iniciar</p>
     </ion-col>
-    <ion-col text-center col-6 padding>
-      <button ion-button clear col-12>
+    <ion-col text-center col-6>
+      <button ion-button icon-only clear col-12>
         <ion-icon name="md-time"></ion-icon>
       </button>
       <p>Histórico</p>
     </ion-col>
-    <ion-col text-center col-6 padding>
-      <button ion-button clear col-12>
+  </ion-row>
+  <ion-row [ngStyle]="{'padding-top':'3rem'}">
+    <ion-col text-center col-6 >
+      <button ion-button icon-only clear col-12>
         <ion-icon name="md-stopwatch"></ion-icon>
       </button>
       <p>Programar Entrega</p>
     </ion-col>
-    <ion-col text-center col-6 padding>
-      <button ion-button clear col-12>
+    <ion-col text-center col-6>
+      <button ion-button icon-only clear col-12>
         <ion-icon name="md-map"></ion-icon>
       </button>
       <p>Meus Lugares</p>
     </ion-col>
   </ion-row>
 </ion-content>
+
 

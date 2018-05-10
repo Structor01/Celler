@@ -10,6 +10,7 @@ export class MapPage {
     location: Location;
     marker: Location;
     styles: any[];
+    iconBase = '/assets/imgs/marker.png';
     constructor() {
         this.location = {
             lat : -16.689682,

@@ -25679,19 +25679,35 @@ ion-navbar.toolbar {
 }
 
 page-home ion-header {
-  min-height: 25%;
+  background: white;
 }
 
 page-home ion-header ion-icon {
   font-size: 3rem;
 }
 
-page-home ion-content ion-icon {
-  font-size: 5rem;
+page-home ion-menu ion-item h2 {
+  color: #006699 !important;
 }
 
-page-home ion-content ion-row {
-  background: rgba(255, 255, 255, 0.8);
+page-home ion-avatar img {
+  width: auto !important;
+  height: 8rem !important;
+  border: .2rem solid white;
+}
+
+page-home ion-content {
+  background: url("/assets/imgs/BANNER01.jpg");
+  background-size: cover;
+  background-position: bottom center;
+}
+
+page-home ion-content button {
+  height: 8rem !important;
+}
+
+page-home ion-content ion-icon {
+  font-size: 6rem !important;
 }
 
 page-home p {
