@@ -14,8 +14,10 @@
   [latitude]="location.lat"
   [longitude]="location.lng"
   [zoom]="15"
+  [maxZoom]="17"
   (mapClick)="onSetMarker($event)"
   [styles]= "styles"
+  (mapReady)=""
 >
   <agm-marker
     [latitude]="marker.lat"

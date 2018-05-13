@@ -152,11 +152,6 @@ var MapPage = /** @class */ (function () {
         };
         this.geoError = function (error) {
             var ok = Object.keys(error);
-            var h = '';
-            for (var i in ok) {
-                h += ok[i];
-            }
-            alert(h);
             switch (error.code) {
                 case error.TIMEOUT:
                     // The user didn't accept the callout
@@ -174,8 +169,8 @@ var MapPage = /** @class */ (function () {
             alert(JSON.stringify(error));
         });
         this.styles = [
-            { elementType: 'geometry', stylers: [{ color: '#E1F5FE' }] },
-            { elementType: 'labels.text.stroke', stylers: [{ color: 'white' }] },
+            { elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+            { elementType: 'labels.text.stroke', stylers: [{ color: null }] },
             { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
             {
                 featureType: 'administrative.locality',
@@ -200,7 +195,7 @@ var MapPage = /** @class */ (function () {
             {
                 featureType: 'road',
                 elementType: 'geometry',
-                stylers: [{ color: '#006699' }]
+                stylers: [{ color: '#dddddd' }]
             },
             {
                 featureType: 'road',
@@ -210,16 +205,16 @@ var MapPage = /** @class */ (function () {
             {
                 featureType: 'road',
                 elementType: 'labels.text.fill',
-                stylers: [{ color: '#ffffff' }]
+                stylers: [{ color: '#bbbbbb' }]
             }, {
                 featureType: 'road',
                 elementType: 'labels.text.stroke',
-                stylers: [{ color: '#000000' }]
+                stylers: [{ color: null }]
             },
             {
                 featureType: 'road.highway',
                 elementType: 'geometry',
-                stylers: [{ color: '#006699' }]
+                stylers: [{ color: '#dddddd' }]
             },
             {
                 featureType: 'road.highway',
@@ -261,15 +256,16 @@ var MapPage = /** @class */ (function () {
     MapPage.prototype.onSetMarker = function (event) {
         console.log(event);
         this.marker = new __WEBPACK_IMPORTED_MODULE_1__models_location__["a" /* Location */](event.coords.lat, event.coords.lng);
-        navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
+        // navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
     };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-map',template:/*ion-inline-start:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/'<ion-header>\n  <ion-list>\n    <ion-item id="origem">\n      <ion-label floating>Origem</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="show">\n      <ion-label floating>Local de Entrega</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n  </ion-list>\n</ion-header>\n<agm-map\n  [latitude]="location.lat"\n  [longitude]="location.lng"\n  [zoom]="15"\n  (mapClick)="onSetMarker($event)"\n  [styles]= "styles"\n>\n  <agm-marker\n    [latitude]="marker.lat"\n    [longitude]="marker.lng"\n    *ngIf="marker"\n    iconUrl="assets/imgs/marker.png"\n  ></agm-marker>\n</agm-map>\n<ion-footer padding>\n  <ion-row>\n    <ion-col text-center col-3>\n      <button ion-button round icon-only color="light" navPop>\n        <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col-3>\n      <button ion-button round icon-only color="primary">\n        <ion-icon name="md-stopwatch"></ion-icon>\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer>\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/,
+            selector: 'page-map',template:/*ion-inline-start:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/'<ion-header>\n  <ion-list>\n    <ion-item id="origem">\n      <ion-label floating>Origem</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="show">\n      <ion-label floating>Local de Entrega</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n  </ion-list>\n</ion-header>\n<agm-map\n  [latitude]="location.lat"\n  [longitude]="location.lng"\n  [zoom]="15"\n  [maxZoom]="17"\n  (mapClick)="onSetMarker($event)"\n  [styles]= "styles"\n  (mapReady)=""\n>\n  <agm-marker\n    [latitude]="marker.lat"\n    [longitude]="marker.lng"\n    *ngIf="marker"\n    iconUrl="assets/imgs/marker.png"\n  ></agm-marker>\n</agm-map>\n<ion-footer padding>\n  <ion-row>\n    <ion-col text-center col-3>\n      <button ion-button round icon-only color="light" navPop>\n        <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col-3>\n      <button ion-button round icon-only color="primary">\n        <ion-icon name="md-stopwatch"></ion-icon>\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer>\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _a || Object])
     ], MapPage);
     return MapPage;
+    var _a;
 }());
 
 //# sourceMappingURL=map.js.map

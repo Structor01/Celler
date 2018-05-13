@@ -22,6 +22,7 @@ export class MapPage {
         };
 
         this.show = false;
+
         this.geoSuccess = function(position) {
             // hideNudgeBanner();
             // We have the location, don't display banner
@@ -35,11 +36,6 @@ export class MapPage {
         };
         this.geoError = function(error) {
             var ok = Object.keys(error);
-            var h = '';
-            for(var i in ok) {
-                h += ok[i]
-            }
-            alert(h);
             switch(error.code) {
                 case error.TIMEOUT:
                     // The user didn't accept the callout
@@ -47,8 +43,6 @@ export class MapPage {
                     break;
             }
         };
-
-
 
         this.geolocation.getCurrentPosition().then((resp)=> {
             console.log(resp)
@@ -61,8 +55,8 @@ export class MapPage {
         });
 
         this.styles =  [
-            {elementType: 'geometry', stylers: [{color: '#E1F5FE'}]},
-            {elementType: 'labels.text.stroke', stylers: [{color: 'white'}]},
+            {elementType: 'geometry', stylers: [{color: '#ffffff'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: null}]},
             {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
             {
                 featureType: 'administrative.locality',
@@ -87,7 +81,7 @@ export class MapPage {
             {
                 featureType: 'road',
                 elementType: 'geometry',
-                stylers: [{color: '#006699'}]
+                stylers: [{color: '#dddddd'}]
             },
             {
                 featureType: 'road',
@@ -97,16 +91,16 @@ export class MapPage {
             {
                 featureType: 'road',
                 elementType: 'labels.text.fill',
-                stylers: [{color: '#ffffff'}]
+                stylers: [{color: '#bbbbbb'}]
             },{
                 featureType: 'road',
                 elementType: 'labels.text.stroke',
-                stylers: [{color: '#000000'}]
+                stylers: [{color: null}]
             },
             {
                 featureType: 'road.highway',
                 elementType: 'geometry',
-                stylers: [{color: '#006699'}]
+                stylers: [{color: '#dddddd'}]
             },
             {
                 featureType: 'road.highway',
@@ -149,6 +143,6 @@ export class MapPage {
     onSetMarker(event: any) {
         console.log(event);
         this.marker = new Location(event.coords.lat, event.coords.lng);
-        navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
+        // navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
     }
 }
