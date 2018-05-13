@@ -88,4 +88,7 @@
         <string>Precisamos ter sua localização!</string>
     </edit-config>
     <engine name="ios" spec="~4.5.4" />
+    <plugin name="cordova-plugin-nativegeocoder" spec="^3.1.1">
+        <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Use geocoder service" />
+    </plugin>
 </widget>

@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {AgmCoreModule} from "@agm/core";
 import {MapPage} from "../pages/map/map";
+import {NativeGeocoder} from "@ionic-native/native-geocoder";
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import {MapPage} from "../pages/map/map";
         StatusBar,
         SplashScreen,
         Geolocation,
+        NativeGeocoder,
         {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })

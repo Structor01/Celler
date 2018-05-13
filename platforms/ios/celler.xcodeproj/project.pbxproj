@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		07603C0F9E694C1E8760635C /* GCDWebServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0781102EF6492C9BF71D7A /* GCDWebServerRequest.m */; };
@@ -38,6 +37,7 @@
 		D5E3CC407ACE40F6994E2E5F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5949B230B37449D890F3D9C1 /* libz.tbd */; };
 		D7E915EEBB4343D48DBCA35A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F741DEFECD5B4E588B6A62E7 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E3F3EE19618247FF88A223CA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E063A679BC6B40A0BE88FEBB /* CoreLocation.framework */; };
+		A13E94AC9901465CBD0AE9CC /* NativeGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2F9A0C2324ECAA873F151 /* NativeGeocoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +132,8 @@
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F741DEFECD5B4E588B6A62E7 /* WebKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = celler/config.xml; sourceTree = "<group>"; };
+		2AE2F9A0C2324ECAA873F151 /* NativeGeocoder.swift */ = {isa = PBXFileReference; name = "NativeGeocoder.swift"; path = "cordova-plugin-nativegeocoder/NativeGeocoder.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		D4291324EDBC41DDB3CC0AB0 /* NativeGeocoder-Bridging-Header.h */ = {isa = PBXFileReference; name = "NativeGeocoder-Bridging-Header.h"; path = "cordova-plugin-nativegeocoder/NativeGeocoder-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +288,8 @@
 				996BA9F2D3684DBCAF97EF50 /* CDVViewController+SplashScreen.m */,
 				0A20B60E74D349FDB6EE94F2 /* CDVSplashScreen.h */,
 				D150E4AC68A047D3AFACD497 /* CDVViewController+SplashScreen.h */,
+				2AE2F9A0C2324ECAA873F151 /* NativeGeocoder.swift */,
+				D4291324EDBC41DDB3CC0AB0 /* NativeGeocoder-Bridging-Header.h */,
 			);
 			name = Plugins;
 			path = celler/Plugins;
@@ -434,6 +438,7 @@
 				B22A25081AB446E29A9E30A8 /* GCDWebServerStreamedResponse.m in Sources */,
 				84C873371F234FF4AE1D554A /* CDVSplashScreen.m in Sources */,
 				6435DF6DAE60489FAA0E21E6 /* CDVViewController+SplashScreen.m in Sources */,
+				A13E94AC9901465CBD0AE9CC /* NativeGeocoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +476,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "celler-v1";
 				PRODUCT_NAME = celler;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -495,6 +504,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "celler-v1";
 				PRODUCT_NAME = celler;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -521,6 +533,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -546,6 +562,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

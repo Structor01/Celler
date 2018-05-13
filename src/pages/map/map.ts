@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {Location} from "../../models/location";
 import { Geolocation } from "@ionic-native/geolocation";
+import {LoadingController} from "ionic-angular";
+import {NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
 
 @Component({
     selector: 'page-map',
@@ -8,6 +10,7 @@ import { Geolocation } from "@ionic-native/geolocation";
 })
 export class MapPage {
     startPos;
+    loading;
     geoError;
     geoSuccess;
     location: Location;
@@ -15,14 +18,12 @@ export class MapPage {
     styles: any[];
     iconBase = '/assets/imgs/marker.png';
     show;
-    constructor(private geolocation: Geolocation) {
+    constructor(private geolocation: Geolocation, public loadingCtr: LoadingController, private nativeGeocoder: NativeGeocoder) {
         this.location = {
             lat : -16.689682,
             lng: -49.277111
         };
-
         this.show = false;
-
         this.geoSuccess = function(position) {
             // hideNudgeBanner();
             // We have the location, don't display banner
@@ -35,7 +36,6 @@ export class MapPage {
             document.getElementById('startLon').innerHTML = this.startPos.coords.longitude;
         };
         this.geoError = function(error) {
-            var ok = Object.keys(error);
             switch(error.code) {
                 case error.TIMEOUT:
                     // The user didn't accept the callout
@@ -43,17 +43,18 @@ export class MapPage {
                     break;
             }
         };
-
         this.geolocation.getCurrentPosition().then((resp)=> {
             console.log(resp)
             this.location.lat = resp.coords.latitude;
             this.location.lng = resp.coords.longitude;
-            this.marker = new Location(this.location.lat, this.location.lng);
         }).catch((error)=>{
            console.log(error)
             alert(JSON.stringify(error))
         });
-
+        this.loading = this.loadingCtr.create({
+            spinner: 'crescent',
+            content: 'Opa, estamos preparando o mapa para você!'
+        });
         this.styles =  [
             {elementType: 'geometry', stylers: [{color: '#ffffff'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: null}]},
@@ -140,9 +141,29 @@ export class MapPage {
         ]
     }
 
+    presentLoadingCrescent() {
+        this.loading.present();
+    }
+
+    ionViewDidEnter() {
+        this.presentLoadingCrescent();
+    }
+
+    mapReadyDo() {
+        this.marker = new Location(this.location.lat, this.location.lng);
+        this.nativeGeocoder.reverseGeocode(this.location.lat, this.location.lng)
+            .then((result: NativeGeocoderReverseResult) => console.log(JSON.stringify(result)))
+            .catch((error: any) => console.log(error));
+        console.log('Pronto');
+        setTimeout(() => {
+            this.loading.dismiss();
+        }, 1000);
+    }
+
     onSetMarker(event: any) {
         console.log(event);
         this.marker = new Location(event.coords.lat, event.coords.lng);
+        this.loading.dismiss();
         // navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
     }
 }
