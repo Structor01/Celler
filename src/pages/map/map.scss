@@ -10,13 +10,16 @@ page-map {
     background: rgba(255,255,255, 1) !important;
     color: #006699 !important;
     font-weight: bolder !important;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    stroke: none;
+    box-shadow: none !important;
+    border: none !important;
+    //-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    //-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    //box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   }
 
   #origem {
-    background: #006699 !important;
+    background: rgba(0,102,153, 0.8) !important;
     color: #fff !important;
   }
 

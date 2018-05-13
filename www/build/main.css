@@ -25693,7 +25693,7 @@ page-home ion-menu ion-item h2 {
 
 page-home ion-avatar img {
   width: auto !important;
-  height: 8rem !important;
+  height: 6rem !important;
   border: .2rem solid white;
 }
 
@@ -25704,11 +25704,17 @@ page-home ion-content {
 }
 
 page-home ion-content button {
-  height: 8rem !important;
+  height: 7rem !important;
+  color: white !important;
+}
+
+page-home ion-content p {
+  color: white;
+  margin-bottom: 2rem;
 }
 
 page-home ion-content ion-icon {
-  font-size: 6rem !important;
+  font-size: 5rem !important;
 }
 
 page-home p {
@@ -25729,12 +25735,14 @@ page-map ion-header ion-item {
   background: white !important;
   color: #006699 !important;
   font-weight: bolder !important;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  stroke: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 page-map #origem {
-  background: #006699 !important;
+  background: rgba(0, 102, 153, 0.8) !important;
   color: #fff !important;
 }
 

@@ -4,7 +4,7 @@
       <ion-label floating>Origem</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="show">
       <ion-label floating>Local de Entrega</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
@@ -13,7 +13,7 @@
 <agm-map
   [latitude]="location.lat"
   [longitude]="location.lng"
-  [zoom]="16"
+  [zoom]="15"
   (mapClick)="onSetMarker($event)"
   [styles]= "styles"
 >

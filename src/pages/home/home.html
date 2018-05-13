@@ -1,4 +1,4 @@
-<ion-header padding>
+<ion-header>
   <ion-row>
     <ion-col col-2>
       <button ion-button icon-only clear menuToggle float-start>
@@ -6,7 +6,7 @@
       </button>
     </ion-col>
     <ion-col text-center col-8>
-      <img width="90%" src="assets/imgs/icon.png">
+      <img width="20%" src="assets/imgs/icon.png">
     </ion-col>
     <ion-col col-2>
       <button ion-button icon-only clear float-end>
@@ -48,10 +48,10 @@
 
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
 
-<ion-content padding>
-  <ion-row [ngStyle]="{'padding-top':'3rem'}">
+<ion-content padding [ngStyle]="{'background':'#006699'}">
+  <ion-row>
     <ion-col text-center col-6>
-      <button ion-button clear icon-only color="primary" col-12 [navPush]="map">
+      <button ion-button clear icon-only col-12 [navPush]="map">
         <ion-icon name="md-paper-plane"></ion-icon>
       </button>
       <p>Iniciar</p>
@@ -62,8 +62,6 @@
       </button>
       <p>Histórico</p>
     </ion-col>
-  </ion-row>
-  <ion-row [ngStyle]="{'padding-top':'3rem'}">
     <ion-col text-center col-6 >
       <button ion-button icon-only clear col-12>
         <ion-icon name="md-stopwatch"></ion-icon>
@@ -75,6 +73,13 @@
         <ion-icon name="md-map"></ion-icon>
       </button>
       <p>Meus Lugares</p>
+    </ion-col>
+    <ion-col></ion-col>
+    <ion-col text-center col-6 >
+      <button ion-button icon-only clear col-12>
+        <ion-icon name="logo-usd"></ion-icon>
+      </button>
+      <p>Meus Créditos</p>
     </ion-col>
   </ion-row>
 </ion-content>
