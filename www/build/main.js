@@ -120,8 +120,6 @@ var Location = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -131,7 +129,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -326,35 +323,18 @@ var MapPage = /** @class */ (function () {
         this.originVal = '';
         this.cdRef.detectChanges();
     };
-    MapPage.prototype.mapsSearchBar = function (ev) {
-        // set input to the value of the searchbar
-        //this.search = ev.target.value;
-        console.log(ev);
-        var autocomplete = new google.maps.places.Autocomplete(ev);
-        autocomplete.bindTo('bounds', this.map);
-        return new __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"](function (sub) {
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                }
-                else {
-                    sub.next(place.geometry.location);
-                    sub.complete();
-                }
-            });
-        });
-    };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-map',template:/*ion-inline-start:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/'<ion-header>\n  <ion-list>\n    <ion-item id="origem" *ngIf="showOrigem">\n      <ion-label floating>Origem</ion-label>\n      <ion-input [(ngModel)]="origin" type="text" value="{{ originVal }}" (ionBlur)="searchAddress($event)" (ionFocus)="clearVal()"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="showEntrega">\n      <ion-label floating>Local de Entrega</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n  </ion-list>\n</ion-header>\n<agm-map\n  [latitude]="location.lat"\n  [longitude]="location.lng"\n  [zoom]="19"\n  [minZoom]="16"\n  (mapClick)="onSetMarker($event)"\n  [styles]= "styles"\n  (mapReady)="mapReadyDo()"\n>\n  <agm-marker\n    [latitude]="marker.lat"\n    [longitude]="marker.lng"\n    *ngIf="marker"\n    iconUrl="assets/imgs/marker.png"\n  ></agm-marker>\n</agm-map>\n<ion-footer padding="">\n  <ion-row>\n    <ion-col text-center col text-left>\n      <button ion-button clear icon-only color="light" navPop>\n        <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col text-end>\n      <button ion-button clear icon-only color="light">\n        <ion-icon name="md-stopwatch"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col text-end>\n      <button ion-button clear icon-only color="light" (click)="myLocation()">\n        <ion-icon name="md-locate"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col *ngIf="origemSet" text-end>\n      <button ion-button color="secondary" (click)="confirma($event)">\n        Confirmar\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer>\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__["a" /* NativeGeocoder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__["a" /* NativeGeocoder */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ModalController */]) === "function" && _f || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__["a" /* NativeGeocoder */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ModalController */]])
     ], MapPage);
     return MapPage;
-    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=map.js.map

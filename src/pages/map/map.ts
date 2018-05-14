@@ -3,9 +3,6 @@ import {Location} from "../../models/location";
 import { Geolocation } from "@ionic-native/geolocation";
 import {Events, LoadingController, ModalController} from "ionic-angular";
 import {NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
-import { Observable } from 'rxjs/Observable';
-
-declare var google: any;
 
 @Component({
     selector: 'page-map',
@@ -216,26 +213,5 @@ export class MapPage implements OnInit {
     clearVal() {
         this.originVal = '';
         this.cdRef.detectChanges();
-    }
-
-    mapsSearchBar(ev: any) {
-        // set input to the value of the searchbar
-        //this.search = ev.target.value;
-        console.log(ev);
-        const autocomplete = new google.maps.places.Autocomplete(ev);
-        autocomplete.bindTo('bounds', this.map);
-        return new Observable((sub: any) => {
-            google.maps.event.addListener(autocomplete, 'place_changed', () => {
-                const place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    sub.error({
-                        message: 'Autocomplete returned place with no geometry'
-                    });
-                } else {
-                    sub.next(place.geometry.location);
-                    sub.complete();
-                }
-            });
-        });
     }
 }
