@@ -19,20 +19,20 @@
     "cordova-plugin-ionic-webview": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
+    "cordova-plugin-nativegeocoder": {
+      "LOCATION_WHEN_IN_USE_DESCRIPTION": "Use geocoder service",
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-nativegeocoder": {
-      "LOCATION_WHEN_IN_USE_DESCRIPTION": "Use geocoder service",
-      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-add-swift-support": {
-      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   }
 }

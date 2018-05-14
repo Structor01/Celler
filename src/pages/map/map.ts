@@ -13,6 +13,7 @@ export class MapPage {
     loading;
     geoError;
     geoSuccess;
+    public originVal: string;
     location: Location;
     marker: Location;
     styles: any[];
@@ -23,6 +24,7 @@ export class MapPage {
             lat : -16.689682,
             lng: -49.277111
         };
+
         this.show = false;
         this.geoSuccess = function(position) {
             // hideNudgeBanner();
@@ -48,7 +50,7 @@ export class MapPage {
             this.location.lat = resp.coords.latitude;
             this.location.lng = resp.coords.longitude;
         }).catch((error)=>{
-           console.log(error)
+            console.log(error)
             alert(JSON.stringify(error))
         });
         this.loading = this.loadingCtr.create({
@@ -141,29 +143,50 @@ export class MapPage {
         ]
     }
 
-    presentLoadingCrescent() {
+    presentLoadingCrescent(text: string) {
+        this.loading = this.loadingCtr.create({
+            spinner: 'crescent',
+            content: text
+        });
         this.loading.present();
     }
 
     ionViewDidEnter() {
-        this.presentLoadingCrescent();
+        this.presentLoadingCrescent('Opa, estamos preparando o mapa para você!');
     }
 
     mapReadyDo() {
         this.marker = new Location(this.location.lat, this.location.lng);
-        this.nativeGeocoder.reverseGeocode(this.location.lat, this.location.lng)
-            .then((result: NativeGeocoderReverseResult) => console.log(JSON.stringify(result)))
-            .catch((error: any) => console.log(error));
         console.log('Pronto');
+        this.getAddress(this.location.lat, this.location.lng);
         setTimeout(() => {
             this.loading.dismiss();
         }, 1000);
     }
 
     onSetMarker(event: any) {
+        this.presentLoadingCrescent('Anotando o endereço...');
         console.log(event);
         this.marker = new Location(event.coords.lat, event.coords.lng);
+        this.getAddress(event.coords.lat, event.coords.lng);
         this.loading.dismiss();
         // navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
+    }
+
+    getAddress(lat:any, lng:any) {
+        this.nativeGeocoder.reverseGeocode(lat, lng)
+            .then((result: NativeGeocoderReverseResult) => this.setOrigin(result))
+            .catch((error: any) => alert('Erro '+error));
+    }
+
+   setOrigin(val: any) {
+        console.log(val);
+        let address: string;
+        address = val[0]['thoroughfare'];
+        val[0]['subThoroughfare'] != '' ? address += ', ' + val[0]['subThoroughfare'] : false;
+        address += ', '+val[0]['subLocality']
+        setTimeout(()=> {
+            this.originVal = address;
+        },1000);
     }
 }

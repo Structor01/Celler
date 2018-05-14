@@ -2,7 +2,7 @@
   <ion-list>
     <ion-item id="origem">
       <ion-label floating>Origem</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input [(ngModel)]="origin" type="text" value="{{ originVal }}"></ion-input>
     </ion-item>
     <ion-item *ngIf="show">
       <ion-label floating>Local de Entrega</ion-label>
