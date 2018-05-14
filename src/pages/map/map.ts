@@ -1,25 +1,33 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Location} from "../../models/location";
 import { Geolocation } from "@ionic-native/geolocation";
-import {LoadingController} from "ionic-angular";
+import {Events, LoadingController, ModalController} from "ionic-angular";
 import {NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
 
 @Component({
     selector: 'page-map',
     templateUrl: 'map.html',
 })
-export class MapPage {
+export class MapPage implements OnInit {
     startPos;
     loading;
     geoError;
     geoSuccess;
     public originVal: string;
+    public originChanged: string;
     location: Location;
     marker: Location;
     styles: any[];
     iconBase = '/assets/imgs/marker.png';
     show;
-    constructor(private geolocation: Geolocation, public loadingCtr: LoadingController, private nativeGeocoder: NativeGeocoder) {
+    constructor(
+        private geolocation: Geolocation,
+        public loadingCtr: LoadingController,
+        private nativeGeocoder: NativeGeocoder,
+        public events: Events,
+        public cdRef:ChangeDetectorRef,
+        public modal: ModalController
+    ) {
         this.location = {
             lat : -16.689682,
             lng: -49.277111
@@ -151,8 +159,15 @@ export class MapPage {
         this.loading.present();
     }
 
-    ionViewDidEnter() {
+    ngOnInit() {
         this.presentLoadingCrescent('Opa, estamos preparando o mapa para você!');
+        this.events.subscribe('changeOrigin', (data) => {
+            console.log('SUBS');
+            setTimeout(()=>{
+                this.originVal = this.originChanged;
+                this.cdRef.detectChanges();
+            }, 1000);
+        });
     }
 
     mapReadyDo() {
@@ -179,14 +194,20 @@ export class MapPage {
             .catch((error: any) => alert('Erro '+error));
     }
 
-   setOrigin(val: any) {
+    setOrigin(val: any) {
         console.log(val);
         let address: string;
         address = val[0]['thoroughfare'];
         val[0]['subThoroughfare'] != '' ? address += ', ' + val[0]['subThoroughfare'] : false;
         address += ', '+val[0]['subLocality']
-        setTimeout(()=> {
-            this.originVal = address;
-        },1000);
+        this.originChanged = address;
+        this.events.publish('changeOrigin');
+    }
+
+    myLocation() {
+        this.presentLoadingCrescent('Procurando você...');
+        this.marker = new Location(this.location.lat, this.location.lng);
+        this.getAddress(this.location.lat, this.location.lng);
+        this.loading.dismiss();
     }
 }
