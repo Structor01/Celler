@@ -25727,7 +25727,7 @@ page-map ion-header {
 }
 
 page-map agm-map {
-  height: 100rem;
+  height: 100%;
 }
 
 page-map ion-header ion-item {
@@ -25736,9 +25736,9 @@ page-map ion-header ion-item {
   color: #006699 !important;
   font-weight: bolder !important;
   stroke: none;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
   border: none !important;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 page-map #origem {
@@ -25746,6 +25746,10 @@ page-map #origem {
   color: #fff !important;
 }
 
+page-map ion-footer {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
 page-map ion-footer button {
-  font-size: 2rem !important;
+  font-size: 1.5rem !important;
 }

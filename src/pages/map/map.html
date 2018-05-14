@@ -1,10 +1,10 @@
 <ion-header>
   <ion-list>
-    <ion-item id="origem">
+    <ion-item id="origem" *ngIf="showOrigem">
       <ion-label floating>Origem</ion-label>
-      <ion-input [(ngModel)]="origin" type="text" value="{{ originVal }}"></ion-input>
+      <ion-input [(ngModel)]="origin" type="text" value="{{ originVal }}" (ionBlur)="searchAddress($event)" (ionFocus)="clearVal()"></ion-input>
     </ion-item>
-    <ion-item *ngIf="show">
+    <ion-item *ngIf="showEntrega">
       <ion-label floating>Local de Entrega</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
@@ -13,8 +13,8 @@
 <agm-map
   [latitude]="location.lat"
   [longitude]="location.lng"
-  [zoom]="15"
-  [maxZoom]="17"
+  [zoom]="19"
+  [minZoom]="16"
   (mapClick)="onSetMarker($event)"
   [styles]= "styles"
   (mapReady)="mapReadyDo()"
@@ -26,21 +26,26 @@
     iconUrl="assets/imgs/marker.png"
   ></agm-marker>
 </agm-map>
-<ion-footer padding>
+<ion-footer padding="">
   <ion-row>
-    <ion-col text-center col-3>
-      <button ion-button round icon-only color="light" navPop>
+    <ion-col text-center col text-left>
+      <button ion-button clear icon-only color="light" navPop>
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-col>
-    <ion-col text-center col-3>
-      <button ion-button round icon-only color="primary">
+    <ion-col text-center col text-end>
+      <button ion-button clear icon-only color="light">
         <ion-icon name="md-stopwatch"></ion-icon>
       </button>
     </ion-col>
-    <ion-col text-center col-6 text-end>
-      <button ion-button round icon-only color="light" (click)="myLocation()">
+    <ion-col text-center col text-end>
+      <button ion-button clear icon-only color="light" (click)="myLocation()">
         <ion-icon name="md-locate"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-center col *ngIf="origemSet" text-end>
+      <button ion-button color="secondary" (click)="confirma($event)">
+        Confirmar
       </button>
     </ion-col>
   </ion-row>

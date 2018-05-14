@@ -3,7 +3,7 @@ page-map {
     padding-top: 3rem;
   }
   agm-map {
-    height: 100rem;
+    height: 100%;
   }
   ion-header ion-item {
     margin: 0;
@@ -11,11 +11,10 @@ page-map {
     color: #006699 !important;
     font-weight: bolder !important;
     stroke: none;
-    box-shadow: none !important;
     border: none !important;
-    //-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    //-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    //box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   }
 
   #origem {
@@ -23,7 +22,11 @@ page-map {
     color: #fff !important;
   }
 
+  ion-footer {
+    background: rgba(0,0,0,0.8) !important;
+  }
+
   ion-footer button {
-   font-size: 2rem !important;
+    font-size: 1.5rem !important;
   }
 }

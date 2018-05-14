@@ -120,6 +120,8 @@ var Location = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -134,51 +136,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MapPage = /** @class */ (function () {
     function MapPage(geolocation, loadingCtr, nativeGeocoder, events, cdRef, modal) {
-        var _this = this;
         this.geolocation = geolocation;
         this.loadingCtr = loadingCtr;
         this.nativeGeocoder = nativeGeocoder;
         this.events = events;
         this.cdRef = cdRef;
         this.modal = modal;
+        this.origemSet = false;
         this.iconBase = '/assets/imgs/marker.png';
+        this.showOrigem = true;
         this.location = {
             lat: -16.689682,
             lng: -49.277111
         };
-        this.show = false;
-        this.geoSuccess = function (position) {
-            // hideNudgeBanner();
-            // We have the location, don't display banner
-            // clearTimeout(nudgeTimeoutId);
-            // Do magic with location
-            this.startPos = position;
-            alert(this.startPos);
-            document.getElementById('startLat').innerHTML = this.startPos.coords.latitude;
-            document.getElementById('startLon').innerHTML = this.startPos.coords.longitude;
-        };
-        this.geoError = function (error) {
-            switch (error.code) {
-                case error.TIMEOUT:
-                    // The user didn't accept the callout
-                    // showNudgeBanner();
-                    break;
-            }
-        };
-        this.geolocation.getCurrentPosition().then(function (resp) {
-            console.log(resp);
-            _this.location.lat = resp.coords.latitude;
-            _this.location.lng = resp.coords.longitude;
-        }).catch(function (error) {
-            console.log(error);
-            alert(JSON.stringify(error));
-        });
-        this.loading = this.loadingCtr.create({
-            spinner: 'crescent',
-            content: 'Opa, estamos preparando o mapa para você!'
-        });
         this.styles = [
             { elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
             { elementType: 'labels.text.stroke', stylers: [{ color: null }] },
@@ -273,7 +246,7 @@ var MapPage = /** @class */ (function () {
     };
     MapPage.prototype.ngOnInit = function () {
         var _this = this;
-        this.presentLoadingCrescent('Opa, estamos preparando o mapa para você!');
+        // this.presentLoadingCrescent('Opa, estamos preparando o mapa para você!');
         this.events.subscribe('changeOrigin', function (data) {
             console.log('SUBS');
             setTimeout(function () {
@@ -282,11 +255,12 @@ var MapPage = /** @class */ (function () {
             }, 1000);
         });
     };
+    MapPage.prototype.ngOnDestroy = function () {
+        this.events.unsubscribe('changeOrigin');
+    };
     MapPage.prototype.mapReadyDo = function () {
         var _this = this;
-        this.marker = new __WEBPACK_IMPORTED_MODULE_1__models_location__["a" /* Location */](this.location.lat, this.location.lng);
-        console.log('Pronto');
-        this.getAddress(this.location.lat, this.location.lng);
+        this.myLocation();
         setTimeout(function () {
             _this.loading.dismiss();
         }, 1000);
@@ -294,6 +268,8 @@ var MapPage = /** @class */ (function () {
     MapPage.prototype.onSetMarker = function (event) {
         this.presentLoadingCrescent('Anotando o endereço...');
         console.log(event);
+        this.location.lat = event.coords.lat;
+        this.location.lng = event.coords.lng;
         this.marker = new __WEBPACK_IMPORTED_MODULE_1__models_location__["a" /* Location */](event.coords.lat, event.coords.lng);
         this.getAddress(event.coords.lat, event.coords.lng);
         this.loading.dismiss();
@@ -305,6 +281,17 @@ var MapPage = /** @class */ (function () {
             .then(function (result) { return _this.setOrigin(result); })
             .catch(function (error) { return alert('Erro ' + error); });
     };
+    MapPage.prototype.searchAddress = function (ev) {
+        var _this = this;
+        this.nativeGeocoder.forwardGeocode(ev.value)
+            .then(function (coordinates) {
+            _this.location.lat = parseFloat(coordinates[0]['latitude']);
+            _this.location.lng = parseFloat(coordinates[0]['longitude']);
+            _this.marker = new __WEBPACK_IMPORTED_MODULE_1__models_location__["a" /* Location */](_this.location.lat, _this.location.lng);
+        })
+            .catch(function (error) { return console.log(error); });
+        // console.log(ev);
+    };
     MapPage.prototype.setOrigin = function (val) {
         console.log(val);
         var address;
@@ -315,14 +302,54 @@ var MapPage = /** @class */ (function () {
         this.events.publish('changeOrigin');
     };
     MapPage.prototype.myLocation = function () {
+        var _this = this;
         this.presentLoadingCrescent('Procurando você...');
-        this.marker = new __WEBPACK_IMPORTED_MODULE_1__models_location__["a" /* Location */](this.location.lat, this.location.lng);
-        this.getAddress(this.location.lat, this.location.lng);
-        this.loading.dismiss();
+        this.geolocation.getCurrentPosition().then(function (resp) {
+            console.log(resp);
+            _this.location.lat = resp.coords.latitude;
+            _this.location.lng = resp.coords.longitude;
+            _this.marker = new __WEBPACK_IMPORTED_MODULE_1__models_location__["a" /* Location */](_this.location.lat, _this.location.lng);
+            _this.getAddress(_this.location.lat, _this.location.lng);
+            _this.origemSet = true;
+            _this.loading.dismiss();
+        }).catch(function (error) {
+            console.log(error);
+            alert(JSON.stringify(error));
+        });
+    };
+    MapPage.prototype.confirma = function (ev) {
+        alert(this.originVal);
+        this.showEntrega = true;
+        this.showOrigem = false;
+    };
+    MapPage.prototype.clearVal = function () {
+        this.originVal = '';
+        this.cdRef.detectChanges();
+    };
+    MapPage.prototype.mapsSearchBar = function (ev) {
+        // set input to the value of the searchbar
+        //this.search = ev.target.value;
+        console.log(ev);
+        var autocomplete = new google.maps.places.Autocomplete(ev);
+        autocomplete.bindTo('bounds', this.map);
+        return new __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"](function (sub) {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    sub.error({
+                        message: 'Autocomplete returned place with no geometry'
+                    });
+                }
+                else {
+                    sub.next(place.geometry.location);
+                    sub.complete();
+                }
+            });
+        });
     };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-map',template:/*ion-inline-start:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/'<ion-header>\n  <ion-list>\n    <ion-item id="origem">\n      <ion-label floating>Origem</ion-label>\n      <ion-input [(ngModel)]="origin" type="text" value="{{ originVal }}"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="show">\n      <ion-label floating>Local de Entrega</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n  </ion-list>\n</ion-header>\n<agm-map\n  [latitude]="location.lat"\n  [longitude]="location.lng"\n  [zoom]="15"\n  [maxZoom]="17"\n  (mapClick)="onSetMarker($event)"\n  [styles]= "styles"\n  (mapReady)="mapReadyDo()"\n>\n  <agm-marker\n    [latitude]="marker.lat"\n    [longitude]="marker.lng"\n    *ngIf="marker"\n    iconUrl="assets/imgs/marker.png"\n  ></agm-marker>\n</agm-map>\n<ion-footer padding>\n  <ion-row>\n    <ion-col text-center col-3>\n      <button ion-button round icon-only color="light" navPop>\n        <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col-3>\n      <button ion-button round icon-only color="primary">\n        <ion-icon name="md-stopwatch"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col-6 text-end>\n      <button ion-button round icon-only color="light" (click)="myLocation()">\n        <ion-icon name="md-locate"></ion-icon>\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer>\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/,
+            selector: 'page-map',template:/*ion-inline-start:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/'<ion-header>\n  <ion-list>\n    <ion-item id="origem" *ngIf="showOrigem">\n      <ion-label floating>Origem</ion-label>\n      <ion-input [(ngModel)]="origin" type="text" value="{{ originVal }}" (ionBlur)="searchAddress($event)" (ionFocus)="clearVal()"></ion-input>\n    </ion-item>\n    <ion-item *ngIf="showEntrega">\n      <ion-label floating>Local de Entrega</ion-label>\n      <ion-input type="text"></ion-input>\n    </ion-item>\n  </ion-list>\n</ion-header>\n<agm-map\n  [latitude]="location.lat"\n  [longitude]="location.lng"\n  [zoom]="19"\n  [minZoom]="16"\n  (mapClick)="onSetMarker($event)"\n  [styles]= "styles"\n  (mapReady)="mapReadyDo()"\n>\n  <agm-marker\n    [latitude]="marker.lat"\n    [longitude]="marker.lng"\n    *ngIf="marker"\n    iconUrl="assets/imgs/marker.png"\n  ></agm-marker>\n</agm-map>\n<ion-footer padding="">\n  <ion-row>\n    <ion-col text-center col text-left>\n      <button ion-button clear icon-only color="light" navPop>\n        <ion-icon name="ios-arrow-back"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col text-end>\n      <button ion-button clear icon-only color="light">\n        <ion-icon name="md-stopwatch"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col text-end>\n      <button ion-button clear icon-only color="light" (click)="myLocation()">\n        <ion-icon name="md-locate"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col text-center col *ngIf="origemSet" text-end>\n      <button ion-button color="secondary" (click)="confirma($event)">\n        Confirmar\n      </button>\n    </ion-col>\n  </ion-row>\n</ion-footer>\n'/*ion-inline-end:"/Users/arthurbarros/Desktop/Projetos/Celler/Celler_v1/src/pages/map/map.html"*/,
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__["a" /* NativeGeocoder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_geocoder__["a" /* NativeGeocoder */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* Events */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* ModalController */]) === "function" && _f || Object])
     ], MapPage);

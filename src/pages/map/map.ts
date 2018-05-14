@@ -3,6 +3,9 @@ import {Location} from "../../models/location";
 import { Geolocation } from "@ionic-native/geolocation";
 import {Events, LoadingController, ModalController} from "ionic-angular";
 import {NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
+import { Observable } from 'rxjs/Observable';
+
+declare var google: any;
 
 @Component({
     selector: 'page-map',
@@ -11,15 +14,16 @@ import {NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult
 export class MapPage implements OnInit {
     startPos;
     loading;
-    geoError;
-    geoSuccess;
+    origemSet = false;
     public originVal: string;
     public originChanged: string;
     location: Location;
     marker: Location;
     styles: any[];
     iconBase = '/assets/imgs/marker.png';
-    show;
+    showEntrega;
+    showOrigem = true;
+
     constructor(
         private geolocation: Geolocation,
         public loadingCtr: LoadingController,
@@ -33,38 +37,6 @@ export class MapPage implements OnInit {
             lng: -49.277111
         };
 
-        this.show = false;
-        this.geoSuccess = function(position) {
-            // hideNudgeBanner();
-            // We have the location, don't display banner
-            // clearTimeout(nudgeTimeoutId);
-
-            // Do magic with location
-            this.startPos = position;
-            alert(this.startPos)
-            document.getElementById('startLat').innerHTML = this.startPos.coords.latitude;
-            document.getElementById('startLon').innerHTML = this.startPos.coords.longitude;
-        };
-        this.geoError = function(error) {
-            switch(error.code) {
-                case error.TIMEOUT:
-                    // The user didn't accept the callout
-                    // showNudgeBanner();
-                    break;
-            }
-        };
-        this.geolocation.getCurrentPosition().then((resp)=> {
-            console.log(resp)
-            this.location.lat = resp.coords.latitude;
-            this.location.lng = resp.coords.longitude;
-        }).catch((error)=>{
-            console.log(error)
-            alert(JSON.stringify(error))
-        });
-        this.loading = this.loadingCtr.create({
-            spinner: 'crescent',
-            content: 'Opa, estamos preparando o mapa para você!'
-        });
         this.styles =  [
             {elementType: 'geometry', stylers: [{color: '#ffffff'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: null}]},
@@ -160,7 +132,7 @@ export class MapPage implements OnInit {
     }
 
     ngOnInit() {
-        this.presentLoadingCrescent('Opa, estamos preparando o mapa para você!');
+        // this.presentLoadingCrescent('Opa, estamos preparando o mapa para você!');
         this.events.subscribe('changeOrigin', (data) => {
             console.log('SUBS');
             setTimeout(()=>{
@@ -170,10 +142,12 @@ export class MapPage implements OnInit {
         });
     }
 
+    ngOnDestroy() {
+        this.events.unsubscribe('changeOrigin');
+    }
+
     mapReadyDo() {
-        this.marker = new Location(this.location.lat, this.location.lng);
-        console.log('Pronto');
-        this.getAddress(this.location.lat, this.location.lng);
+        this.myLocation();
         setTimeout(() => {
             this.loading.dismiss();
         }, 1000);
@@ -182,6 +156,8 @@ export class MapPage implements OnInit {
     onSetMarker(event: any) {
         this.presentLoadingCrescent('Anotando o endereço...');
         console.log(event);
+        this.location.lat = event.coords.lat;
+        this.location.lng = event.coords.lng;
         this.marker = new Location(event.coords.lat, event.coords.lng);
         this.getAddress(event.coords.lat, event.coords.lng);
         this.loading.dismiss();
@@ -192,6 +168,17 @@ export class MapPage implements OnInit {
         this.nativeGeocoder.reverseGeocode(lat, lng)
             .then((result: NativeGeocoderReverseResult) => this.setOrigin(result))
             .catch((error: any) => alert('Erro '+error));
+    }
+
+    searchAddress(ev: any) {
+        this.nativeGeocoder.forwardGeocode(ev.value)
+            .then((coordinates: NativeGeocoderForwardResult) => {
+                this.location.lat = parseFloat(coordinates[0]['latitude']);
+                this.location.lng = parseFloat(coordinates[0]['longitude']);
+                this.marker = new Location(this.location.lat, this.location.lng);
+            })
+            .catch((error: any) => console.log(error));
+        // console.log(ev);
     }
 
     setOrigin(val: any) {
@@ -206,8 +193,49 @@ export class MapPage implements OnInit {
 
     myLocation() {
         this.presentLoadingCrescent('Procurando você...');
-        this.marker = new Location(this.location.lat, this.location.lng);
-        this.getAddress(this.location.lat, this.location.lng);
-        this.loading.dismiss();
+        this.geolocation.getCurrentPosition().then((resp)=> {
+            console.log(resp)
+            this.location.lat = resp.coords.latitude;
+            this.location.lng = resp.coords.longitude;
+            this.marker = new Location(this.location.lat, this.location.lng);
+            this.getAddress(this.location.lat, this.location.lng);
+            this.origemSet = true;
+            this.loading.dismiss();
+        }).catch((error)=>{
+            console.log(error)
+            alert(JSON.stringify(error))
+        });
+    }
+
+    confirma(ev: any) {
+        alert(this.originVal);
+        this.showEntrega = true;
+        this.showOrigem = false;
+    }
+
+    clearVal() {
+        this.originVal = '';
+        this.cdRef.detectChanges();
+    }
+
+    mapsSearchBar(ev: any) {
+        // set input to the value of the searchbar
+        //this.search = ev.target.value;
+        console.log(ev);
+        const autocomplete = new google.maps.places.Autocomplete(ev);
+        autocomplete.bindTo('bounds', this.map);
+        return new Observable((sub: any) => {
+            google.maps.event.addListener(autocomplete, 'place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    sub.error({
+                        message: 'Autocomplete returned place with no geometry'
+                    });
+                } else {
+                    sub.next(place.geometry.location);
+                    sub.complete();
+                }
+            });
+        });
     }
 }
